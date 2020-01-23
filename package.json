@@ -1,7 +1,7 @@
 {
-  "name": "stigma",
+  "name": "surveypal",
   "version": "1.0.0",
-  "description": "A boilerplate project for anyone interested in making a project that uses React and Rails.",
+  "description": "A survey app that addresses methodological shortcomings of population data collection, focusing on the delivery of Vancouver's Annual Homeless Count.",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -17,15 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NimaBoscarino/stigma.git"
+    "url": "git+https://github.com/vkro/surveypal"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NimaBoscarino/stigma/issues"
-  },
-  "homepage": "https://github.com/NimaBoscarino/stigma#readme",
+  "homepage": "https://github.com/vkro/surveypal/blob/master/README.md",
   "devDependencies": {
     "react-icons": "^3.8.0"
   }
