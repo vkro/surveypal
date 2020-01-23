@@ -8,6 +8,7 @@ class Api::SurveysController < ApplicationController
     questions = []
     questionlist.each { |question|
       questionObj = {}
+      questionObj['serial_order'] = question.serial_order
       questionObj['question'] = Question.find(question.question_id)
       questionObj['options'] = QuestionOption.where({question_id: question.question_id})
       questions << questionObj}
