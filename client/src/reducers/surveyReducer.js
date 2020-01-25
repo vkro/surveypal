@@ -19,7 +19,6 @@ export default function reducer(state, action) {
     first_question['serial_order'] = action.value.questions[0].serial_order
     const first_question_options = action.value.questions[0].options
     const survey_length = action.value.questions.length
-    console.log(survey_length)
     return ({
       ...state,
       current_survey: action.value,
