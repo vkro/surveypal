@@ -70,9 +70,9 @@ export default function Index(props) {
         <BackToSurveyButton onClick={props.backToPreview} className={styleClasses.button} justify="flex-end" />
 
         <Grid container className={styleClasses.grid} direction="row" align="center" justify="center">
-          {surveyState.current_question.id > 1 && (
+          {surveyState.current_question.serial_order > 1 && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-start" >
-              <BeforeButton onClick={() => navigateQuestions(surveyState.current_question.id, -1)} />
+              <BeforeButton onClick={() => navigateQuestions(surveyState.current_question.serial_order, -1)} />
             </Grid>
           )}
 
@@ -84,7 +84,7 @@ export default function Index(props) {
 
           {surveyState.current_question.id < 8 && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-end">
-              <NextButton onClick={() => navigateQuestions(surveyState.current_question.id, 1)} />
+              <NextButton onClick={() => navigateQuestions(surveyState.current_question.serial_order, 1)} />
             </Grid>
           )}
           {surveyState.current_question.id === 8 && (
