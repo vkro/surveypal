@@ -50,18 +50,19 @@ export default function useSurveyData() {
 
   // const setSurvey = survey => dispatch({ type: SET_SURVEY, value: survey});
 
-  const findNextQuestion = function(index, direction){ 
+  const findNextQuestion = function(question_index, direction){ 
     let next_question = {}
     if (direction < 0) {
-       next_question = surveyState.current_survey.questions.find(item => (item.question.id === (index - 1)))
+       next_question = surveyState.current_survey.questions.find(item => (item.serial_order === (question_index - 1)))
     }
     if (direction > 0) {
-      next_question = surveyState.current_survey.questions.find(item => (item.question.id === (index + 1)))
+      next_question = surveyState.current_survey.questions.find(item => (item.serial_order === (question_index + 1)))
     }
     return next_question
   }
 
   const navigateQuestions = function(question_index, direction){
+    console.log(`serial order of current question: ${question_index}`)
     const next_question = findNextQuestion(question_index, direction)
     return (
       dispatch({ type: SET_NEXT_QUESTION, value: next_question })
@@ -70,8 +71,7 @@ export default function useSurveyData() {
 
   const recordQuestionResponse = function(optionId) {
     let existing = JSON.parse(localStorage.getItem("token"))
-    console.log(`current question id: ${state.current_question.id}`)
-    
+        
     // let optionIndex = parseInt(optionId) - 1
     // go through list of questions in local storage
     // look for the checked option ID in its list of options
