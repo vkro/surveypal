@@ -7,8 +7,7 @@ import reducer, {
 } from "../reducers/surveyReducer";
 
 // dispatched actions will be handled by the reducer
-// and will replace the current state. when the component renders,
-// it will use the latest state to generate an updated view
+// which will update the current state
 
 export default function useSurveyData() {
   
@@ -32,24 +31,24 @@ export default function useSurveyData() {
     return <Provider value={{state, dispatch}}>{children}</Provider>;
   };
 
-  // survey state accessed using the context Hook
+  // access survey state using the context Hook
   const surveyState = useContext(SurveyContext)
 
-
+  // get survey data from local storage
   const surveyPromise = new Promise((resolve, reject) => {
     const survey = JSON.parse(localStorage.getItem('token')).surveys[0];
     survey.questions = JSON.parse(localStorage.getItem('token')).questions;
     resolve(survey)
   })
-
+  // update state with survey data
   useEffect(() => {
     surveyPromise.then((survey) => dispatch({ type: SET_SURVEY, value: survey}))
     .catch((err) => `SET_SURVEY useEffect survey promise error: ${err}`)
   }, [])
 
+  //// HANDLE SURVEY QUESTION NAVIGATION & ANSWERS ////
 
-  // const setSurvey = survey => dispatch({ type: SET_SURVEY, value: survey});
-
+  // get the next question from questions list, based on direction of navigation
   const findNextQuestion = function(question_index, direction){ 
     let next_question = {}
     if (direction < 0) {
@@ -60,7 +59,7 @@ export default function useSurveyData() {
     }
     return next_question
   }
-
+  // set state with next question
   const navigateQuestions = function(question_index, direction){
     console.log(`serial order of current question: ${question_index}`)
     const next_question = findNextQuestion(question_index, direction)
@@ -71,7 +70,7 @@ export default function useSurveyData() {
 
   const recordQuestionResponse = function(optionId) {
     let existing = JSON.parse(localStorage.getItem("token"))
-        
+
     // let optionIndex = parseInt(optionId) - 1
     // go through list of questions in local storage
     // look for the checked option ID in its list of options
@@ -112,7 +111,7 @@ export default function useSurveyData() {
   };
 
   return {
-    // use the Provider (StateProvider) component and useContext hook when we need to access survey state
+    // use StateProvider and useContext to access this survey state
     SurveyContext,
     StateProvider,
     navigateQuestions,

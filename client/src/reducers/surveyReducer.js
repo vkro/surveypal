@@ -27,14 +27,14 @@ export default function reducer(state, action) {
       current_options: first_question_options
     });
   };
-
+  // set which options have been selected for multiple choice questions
   if (action.type === SET_CHECKED) {
     return ({
       ...state,
       checked: action.value
     })
   }
-
+  // sets current question based on question navigation
   if (action.type === SET_NEXT_QUESTION) {
     const next_question = action.value.question
     next_question.serial_order = action.value.serial_order
@@ -43,7 +43,6 @@ export default function reducer(state, action) {
       current_question: next_question,
       current_options: action.value.options,
       checked: [0]
-      // current_question_responses: 
     })
   };
 
