@@ -59,6 +59,9 @@ export default function Index(props) {
 
   const surveyState = useContext(SurveyContext);
 
+  const current_question = surveyState.current_question
+  const serial_order = current_question.serial_order
+  const survey_length = surveyState.survey_length
 
   return (
     // with StateProvider, the SurveyContext context component can be accessed from any component
@@ -70,24 +73,24 @@ export default function Index(props) {
         <BackToSurveyButton onClick={props.backToPreview} className={styleClasses.button} justify="flex-end" />
 
         <Grid container className={styleClasses.grid} direction="row" align="center" justify="center">
-          {surveyState.current_question.id > 1 && (
+          {serial_order > 1 && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-start" >
-              <BeforeButton onClick={() => navigateQuestions(surveyState.current_question.id, -1)} />
+              <BeforeButton onClick={() => navigateQuestions(serial_order, -1)} />
             </Grid>
           )}
 
           <Show
-            question_description={surveyState.current_question.description}
+            question_description={current_question.description}
             question_options_list={surveyState.current_options}
-            question={surveyState.current_question}
+            question={current_question}
           />
 
-          {surveyState.current_question.id < 8 && (
+          {serial_order < survey_length && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-end">
-              <NextButton onClick={() => navigateQuestions(surveyState.current_question.id, 1)} />
+              <NextButton onClick={() => navigateQuestions(serial_order, 1)} />
             </Grid>
           )}
-          {surveyState.current_question.id === 8 && (
+          {serial_order === survey_length && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-end">
               <Button onClick={props.backToSurveys} className={styleClasses.buttons}>
                 Submit

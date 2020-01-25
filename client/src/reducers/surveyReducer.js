@@ -16,31 +16,33 @@ export default function reducer(state, action) {
   if (action.type === SET_SURVEY) {
     
     const first_question = action.value.questions[0].question
+    first_question['serial_order'] = action.value.questions[0].serial_order
     const first_question_options = action.value.questions[0].options
+    const survey_length = action.value.questions.length
     return ({
       ...state,
       current_survey: action.value,
+      survey_length: survey_length,
       current_question: first_question,
       current_options: first_question_options
     });
   };
-
+  // set which options have been selected for multiple choice questions
   if (action.type === SET_CHECKED) {
     return ({
       ...state,
       checked: action.value
     })
   }
-
+  // sets current question based on question navigation
   if (action.type === SET_NEXT_QUESTION) {
-    // update token with question options list items where checked=true
-    // const update
+    const next_question = action.value.question
+    next_question.serial_order = action.value.serial_order
     return({
       ...state,
-      current_question: action.value.question,
+      current_question: next_question,
       current_options: action.value.options,
       checked: [0]
-      // current_question_responses: 
     })
   };
 
