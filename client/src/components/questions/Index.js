@@ -59,7 +59,6 @@ export default function Index(props) {
 
   const surveyState = useContext(SurveyContext);
 
-
   return (
     // with StateProvider, the SurveyContext context component can be accessed from any component
     // in this component tree. To  do this, import useContext hook from react and
@@ -82,12 +81,12 @@ export default function Index(props) {
             question={surveyState.current_question}
           />
 
-          {surveyState.current_question.id < 8 && (
+          {surveyState.current_question.serial_order < surveyState.survey_length && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-end">
               <NextButton onClick={() => navigateQuestions(surveyState.current_question.serial_order, 1)} />
             </Grid>
           )}
-          {surveyState.current_question.id === 8 && (
+          {surveyState.current_question.serial_order === surveyState.survey_length && (
             <Grid container item xs className={styleClasses.navButton} justify="flex-end">
               <Button onClick={props.backToSurveys} className={styleClasses.buttons}>
                 Submit
